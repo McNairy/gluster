@@ -1,0 +1,41 @@
+#!/bin/bash
+
+## Add gluster server addresses to /etc/hosts file
+echo "172.30.5.116 gluster1" >> /etc/hosts
+echo "172.30.5.233 gluster2" >> /etc/hosts
+echo "172.30.5.101 gluster3" >> /etc/hosts
+
+## Update packages
+yum update -y
+
+## Add the FUSE loadable kernel module (LKM) to the Linux kernel\
+modprobe fuse
+
+## Install packages needed for glusterfs
+yum -y install fuse fuse-libs openib libibverbs glusterfs glusterfs-fuse httpd-y
+
+## Disable default Apache page
+mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.bak
+
+## Start Apache at startup
+systemctl enable httpd
+
+## Chnage ownershp so the web document root is readable and writeable by Apache
+chown -R apache:apache /var/www/html 
+
+## Mount the gluster filesystem at startup
+echo "gluster1:/gv0 /var/www/html glusterfs defaults,_netdev 0 0" >> /etc/fstab
+
+## Read the /etc/fstab file and mount those filesystem(s) now
+mount -a
+
+## Start Apache now
+systemctl start httpd
+
+## Set selinux to permissive
+setenforce 0
+
+## Sources
+## https://docs.gluster.org/en/latest/Administrator%20Guide/Setting%20Up%20Clients/
+## https://docs.gluster.org/en/latest/Administrator%20Guide/Setting%20Up%20Clients/
+## https://www.cyberciti.biz/tips/why-do-i-see-apache-test-page.html
