@@ -12,7 +12,7 @@ yum update -y
 modprobe fuse
 
 ## Install packages needed for glusterfs
-yum -y install fuse fuse-libs openib libibverbs glusterfs glusterfs-fuse httpd-y
+yum install fuse fuse-libs openib libibverbs glusterfs glusterfs-fuse httpd -y
 
 ## Disable default Apache page
 mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.bak
