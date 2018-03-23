@@ -2,6 +2,7 @@
 # Gluster
 Things I found helpful when setting up glusterfs on AWS using the official CentOS 7 AMI.
 
+# user-data
 Script for AWS EC2 instances user data
 
 This script was written for a CentOS 7 EC2 instance.
@@ -12,3 +13,7 @@ This script was written for a CentOS 7 EC2 instance.
 * Sets selinux to permissive
 
 My goal was something I could use with autoscaling so that the server is instantly ready to serve the site.
+
+# fix_peer_rejected_state.sh
+# gluster_remove_volume.sh
+
