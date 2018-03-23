@@ -1,5 +1,7 @@
 
-# gluster-user-data
+# Gluster
+Things I found helpful when setting up glusterfs on AWS using the official CentOS 7 AMI.
+
 Script for AWS EC2 instances user data
 
 This script was written for a CentOS 7 EC2 instance.
